@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.status) }}
+    {# s'assurer que les champs cachés (dont _token) sont rendus #}
+    {{ form_rest(form) }}
+    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}
