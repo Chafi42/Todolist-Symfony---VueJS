@@ -1,9 +1,9 @@
 <template>
     <button
         @click="open = true"
-        class="px-4 py-2 bg-[#020C69] hover:skew-y-3 text-white rounded shadow"
+        class="px-4 py-2 bg-[#020C69] mt-6 absolute left-8.5 hover:skew-y-3 text-white rounded shadow"
     >
-        Ajouter
+        Ajouter via VueJS
     </button>
 
     <Teleport to="body">
@@ -17,7 +17,7 @@
                     class="border-[#222222] my-2 text-gray-700"
                     @submit.prevent="createTask"
                 >
-                    <h3 class="text-2xl font-bold mb-4 top-3 absolute left-4">
+                    <h3 class="text-2xl font-bold mb-4 top-3 absolute">
                         Ajouter une tâche
                     </h3>
                     <div class="border border-gray-300 my-5 w-full"></div>
@@ -73,14 +73,24 @@
                             <option value="Terminé">Terminé</option>
                         </select>
                     </div>
+                    <div class="flex justify-between">
+                        <button
+                            type="submit"
+                            :disabled="loading"
+                            class="bg-[#020C69] text-white px-4 py-2 rounded mt-3 hover:animate-bounce hover:h-12 disabled:opacity-50"
+                        >
+                            {{ loading ? "" : "Créer" }}
+                        </button>
 
-                    <button
-                        type="submit"
-                        :disabled="loading"
-                        class="bg-[#020C69] text-white px-4 py-2 rounded mt-3 hover:animate-bounce hover:h-12 disabled:opacity-50"
-                    >
-                        {{ loading ? "Envoi..." : "Créer la tâche" }}
-                    </button>
+                        <button
+                            type="submit"
+                            :disabled="loading"
+                            @click="open = false"
+                            class="bg-red-500 text-white px-4 py-2 rounded mt-3 hover:animate-bounce hover:h-12 disabled:opacity-50"
+                        >
+                            {{ loading ? "" : "Annuler" }}
+                        </button>
+                    </div>
                 </form>
 
                 <!-- Close Button -->
@@ -139,7 +149,7 @@ export default {
 </script>
 
 <style>
-.modal {
+    .modal {
     position: fixed;
     top: 20%;
     left: 50%;
@@ -151,9 +161,9 @@ export default {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
+    }
 
-.overlay {
+    .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -161,5 +171,5 @@ export default {
     bottom: 0;
     background: rgba(0, 0, 0, 0.7); /* fond noir semi-transparent */
     z-index: 3000; /* en dessous de la modal */
-}
+    }
 </style>

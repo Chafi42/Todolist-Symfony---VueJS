@@ -15,15 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class TaskController extends AbstractController
 {
-    // #[Route(name: 'app_task_index', methods: ['GET'])]
-    // public function index(TaskRepository $taskRepository): Response
-    // {
-    //     return $this->render('task/index.html.twig', [
-    //         'tasks' => $taskRepository->findAll(),
-    //     ]);
-    // }
 
-#[Route('/', name: 'app_task_index', methods: ['GET'])]
+    #[Route('/', name: 'app_task_index', methods: ['GET'])]
     public function index(TaskRepository $taskRepository): Response
     {
         return $this->render('task/index.html.twig', [
@@ -31,6 +24,8 @@ final class TaskController extends AbstractController
         ]);
     }
 
+
+    // TÂCHE EN API
     #[Route('/api/tasks', name: 'api_tasks', methods: ['GET'])]
     public function apiIndex(TaskRepository $taskRepository): JsonResponse
     {
@@ -70,8 +65,49 @@ final class TaskController extends AbstractController
         return $this->json($resp, Response::HTTP_CREATED);
     }
 
+    #[Route('/api/tasks/{id}', name: 'api_tasks_show', methods: ['GET'])]
+    public function apiShow(Task $task): JsonResponse
+    {
+            $data = [
+                'id' => $task->getId(),
+                'title' => $task->getTitle(),
+                'description' => $task->getDescription(),
+                'status' => $task->getStatus(),
+            ];
+    
+            return $this->json($data);
+    }
+    
+    #[Route('/api/tasks/{id}', name: 'api_tasks_delete', methods: ['DELETE'])]
+    public function apiDelete(Task $task, EntityManagerInterface$entityManager): JsonResponse
+    {
+         $entityManager->remove($task);
+         $entityManager->flush(); 
+         return $this->json(null, Response::HTTP_NO_CONTENT);
+    }
 
+    #[Route('/api/tasks/{id}', name: 'api_tasks_update', methods: ['PUT', 'PATCH'])]
+public function apiUpdate(Request $request, Task $task, EntityManagerInterface $entityManager): JsonResponse
+{
+    $data = json_decode($request->getContent(), true) ?? [];
 
+    $task->setTitle($data['title'] ?? $task->getTitle());
+    $task->setDescription($data['description'] ?? $task->getDescription());
+    $task->setStatus($data['status'] ?? $task->getStatus());
+
+    $entityManager->flush();
+
+    $resp = [
+        'id' => $task->getId(),
+        'title' => $task->getTitle(),
+        'description' => $task->getDescription(),
+        'status' => $task->getStatus(),
+    ];
+
+    return $this->json($resp);
+}
+
+    // CREATION DE TÂCHE EN SYMFONY:
 
     #[Route('/new', name: 'app_task_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
