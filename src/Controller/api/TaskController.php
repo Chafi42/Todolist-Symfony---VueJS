@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\api;
 
 use App\Entity\Task;
 use App\Form\TaskType;
@@ -11,21 +11,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+
 
 
 final class TaskController extends AbstractController
 {
 
-    #[Route('/', name: 'app_task_index', methods: ['GET'])]
-    public function index(TaskRepository $taskRepository): Response
-    {
-        return $this->render('task/index.html.twig', [
-            'tasks' => $taskRepository->findAll(),
-        ]);
-    }
-
-
     // TÂCHE EN API
+
     #[Route('/api/tasks', name: 'api_tasks', methods: ['GET'])]
     public function apiIndex(TaskRepository $taskRepository): JsonResponse
     {
@@ -108,6 +102,14 @@ public function apiUpdate(Request $request, Task $task, EntityManagerInterface $
 }
 
     // CREATION DE TÂCHE EN SYMFONY:
+    
+    #[Route('/', name: 'app_task_index', methods: ['GET'])]
+    public function index(TaskRepository $taskRepository): Response
+    {
+        return $this->render('task/index.html.twig', [
+            'tasks' => $taskRepository->findAll(),
+        ]);
+    }
 
     #[Route('/new', name: 'app_task_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
