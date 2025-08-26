@@ -41,7 +41,7 @@
             <td class="border-1 px-2 sm:px-4 py-2 break-words">
               {{ task.title }}
             </td>
-            <td class="border-1 flex justify-center px-2 sm:px-4 py-2 break-words">
+            <td class="border-1 px-2 sm:px-4 py-2 break-words">
               {{ task.description }}
             </td>
             <td class="border-1 px-2 sm:px-4 py-2">
