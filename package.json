@@ -25,6 +25,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "flowbite-vue": "^0.2.1"
+        "flowbite-vue": "^0.2.1",
+        "vue-router": "^4.5.1"
     }
 }

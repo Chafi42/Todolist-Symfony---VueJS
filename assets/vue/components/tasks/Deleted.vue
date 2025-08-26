@@ -100,7 +100,7 @@ export default {
     },
     methods: {
         async deleteTask() {
-            if (!confirm("Voulez-vous vraiment supprimer cette tâche ?"))
+            if (!console.log("Voulez-vous vraiment supprimer cette tâche ?"))
                 return;
 
             this.loading = true;

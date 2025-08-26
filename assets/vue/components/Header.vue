@@ -1,7 +1,5 @@
 <template>
-  <header
-    class="z-30 mx-auto w-full max-w-screen-md bg-transparent py-3 lg:max-w-screen-lg relative inset-0"
-  >
+  <header class="z-30 mx-auto w-full max-w-screen-md bg-transparent py-3 lg:max-w-screen-lg relative inset-0">
     <div class="px-4">
       <div class="flex items-center justify-between">
         <!-- Logo -->
@@ -82,10 +80,6 @@
 
 <script>
 export default {
-  name: 'Header',
-}
+  name: "Header",
+};
 </script>
-
-<style scoped>
-/* Styles spécifiques si besoin */
-</style>
